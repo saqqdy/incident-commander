@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+*.min.js
+*.bak
+*_bak
+stats.html
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+# Don't ignore .claude/skills — it's the core product!
+# Users need it for /incident to work

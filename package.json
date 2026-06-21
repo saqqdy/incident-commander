@@ -1,0 +1,79 @@
+{
+	"name": "incident-commander",
+	"description": "Incident Commander — A Claude Code Skill plugin that helps SRE / On-call engineers automatically collect multi-source data, generate incident timelines and root cause analyses, and output structured Post-Mortem documents",
+	"version": "0.1.0",
+	"packageManager": "pnpm@9.15.9",
+	"bin": {
+		"incident-commander": "./dist/cli.js"
+	},
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"require": "./dist/index.js",
+			"import": "./dist/index.mjs"
+		}
+	},
+	"files": [
+		"dist",
+		".claude"
+	],
+	"scripts": {
+		"build": "run-s clean build:bundle build:types",
+		"build:bundle": "rolldown -c",
+		"build:types": "tsc --emitDeclarationOnly",
+		"clean": "rm-all dist",
+		"dev": "rolldown -c -w",
+		"lint": "eslint --fix .",
+		"prettier": "prettier --write \"**/*.{js,ts,mjs,yml,json,md}\"",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"dist": "run-s lint build",
+		"typecheck": "tsc --noEmit",
+		"docs:dev": "vitepress dev docs",
+		"docs:build": "vitepress build docs",
+		"docs:preview": "vitepress preview docs",
+		"demo": "node dist/cli.js demo"
+	},
+	"devDependencies": {
+		"@eslint-sets/eslint-config": "^6.3.1",
+		"@types/node": "^26.0.0",
+		"eslint": "^9.39.4",
+		"npm-run-all": "^4.1.5",
+		"prettier": "^3.8.4",
+		"prettier-config-common": "^1.5.0",
+		"rm-all": "^1.1.1",
+		"rolldown": "1.1.2",
+		"typescript": "^5.9.3",
+		"vitepress": "^1.6.4",
+		"vitest": "^3.2.6",
+		"vue": "^3.5.38"
+	},
+	"engines": {
+		"node": ">=18.0"
+	},
+	"sideEffects": false,
+	"keywords": [
+		"incident-commander",
+		"sre",
+		"on-call",
+		"incident-response",
+		"post-mortem",
+		"rca",
+		"claude-code",
+		"claude-code-skill"
+	],
+	"license": "MIT",
+	"author": "saqqdy<https://github.com/saqqdy>",
+	"homepage": "https://github.com/saqqdy/incident-commander#readme",
+	"bugs": {
+		"url": "https://github.com/saqqdy/incident-commander/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/saqqdy/incident-commander.git"
+	}
+}
