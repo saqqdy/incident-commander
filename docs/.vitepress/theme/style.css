@@ -1,0 +1,21 @@
+/* Custom styles for Incident Commander docs */
+
+:root {
+	--vp-home-hero-name-color: transparent;
+	--vp-home-hero-name-background: linear-gradient(120deg, #e63946 30%, #1d3557);
+	--vp-home-hero-image-background-image: linear-gradient(120deg, #e63946 50%, #1d3557 50%);
+	--vp-home-hero-image-filter: blur(44px);
+}
+
+/* Incident Commander red + navy theme color */
+:root {
+	--vp-c-brand-1: #e63946;
+	--vp-c-brand-2: #1d3557;
+	--vp-c-brand-3: #e63946;
+}
+
+.dark {
+	--vp-c-brand-1: #ff6b6b;
+	--vp-c-brand-2: #a8dadc;
+	--vp-c-brand-3: #ff6b6b;
+}
