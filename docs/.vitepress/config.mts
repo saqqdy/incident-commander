@@ -2,10 +2,14 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
 	base: '/incident-commander/',
+	cleanUrls: true,
 	head: [
 		['link', { href: '/incident-commander/logo.svg', rel: 'icon' }],
 		['meta', { name: 'theme-color', content: '#e63946' }],
 	],
+	lastUpdated: true,
+	title: 'Incident Commander',
+	titleTemplate: ':title - Incident Commander',
 
 	locales: {
 		root: {
@@ -71,12 +75,6 @@ export default defineConfig({
 								{ link: '/guide/roadmap', text: 'Version Roadmap' },
 							],
 							text: 'More',
-						},
-						{
-							items: [
-								{ link: '/playground', text: 'Playground' },
-							],
-							text: 'Try It',
 						},
 					],
 					'/api/': [
@@ -208,12 +206,6 @@ export default defineConfig({
 							],
 							text: '更多',
 						},
-						{
-							items: [
-								{ link: '/zh/playground', text: '体验场' },
-							],
-							text: '试一试',
-						},
 					],
 					'/zh/api/': [
 						{
@@ -285,10 +277,30 @@ export default defineConfig({
 		logo: '/logo.svg',
 		search: {
 			provider: 'local',
+			options: {
+				locales: {
+					zh: {
+						translations: {
+							button: {
+								buttonText: '搜索',
+								buttonAriaLabel: '搜索',
+							},
+							modal: {
+								noResultsText: '无法找到相关结果',
+								resetButtonTitle: '清除查询条件',
+								footer: {
+									selectText: '选择',
+									navigateText: '切换',
+									closeText: '关闭',
+								},
+							},
+						},
+					},
+				},
+			},
 		},
 		siteTitle: 'Incident Commander',
 		socialLinks: [{ icon: 'github', link: 'https://github.com/saqqdy/incident-commander' }],
+		externalLinkIcon: true,
 	},
-
-	title: 'Incident Commander',
 })
