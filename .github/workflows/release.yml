@@ -1,0 +1,60 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v*
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint & Test
+        run: |
+          pnpm run lint
+          pnpm run typecheck
+          pnpm run test
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Generate Release Notes
+        id: notes
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          if [ -f CHANGELOG.md ]; then
+            NOTES=$(awk "/^## \[${TAG#v}\]/{flag=1;next} /^## \[/{flag=0} flag" CHANGELOG.md | sed '/^$/d;1d;$d')
+          fi
+          echo "notes<<EOF" >> "$GITHUB_OUTPUT"
+          echo "${NOTES:-Release ${TAG}}" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.notes.outputs.tag }}
+          body: ${{ steps.notes.outputs.notes }}
+
+      - name: Publish to npm
+        run: pnpm publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
