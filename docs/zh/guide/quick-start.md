@@ -49,11 +49,73 @@ pnpm run demo
 
 可以分别运行每个步骤以获得更多控制：
 
+### 仅生成时间线
+
 ```text
-/incident timeline    # 仅生成时间线
-/incident rca         # 仅做根因分析
-/incident postmortem  # 仅生成 Post-Mortem
-/incident brief       # 生成事故简报
+/incident timeline
+```
+
+输出：
+
+```text
+📊 Timeline built — 18 events
+| Time (UTC) | Event | Source |
+|-----------|-------|--------|
+| 10:00 | 📝 alice: feat: update user-service API to v2 | GitHub |
+| 10:02 | 🚀 Deploy: production ✅ | GitHub |
+| 10:05 | 🔴 Error rate spike on /api/users (500 errors) | Sentry |
+| 10:08 | ⚠️ Alert: P95 latency > 2s on user-service | Grafana |
+| 10:30 | ⏪ Rollback: production to v2.4.0 | GitHub |
+| 10:35 | ✅ Error rate recovered | Sentry |
+
+Key turning points: First error (10:05), Rollback (10:30), Recovery (10:35)
+```
+
+### 仅做根因分析
+
+```text
+/incident rca
+```
+
+输出：
+
+```text
+🧠 Root Cause Analysis
+
+Causal Chain:
+1. 📝 Deploy v2.5.0 (10:02) → includes user-service Breaking Change
+2. 🔴 Error spike (10:05) → v2 API removed old endpoint, downstream 500 errors
+3. ⚠️ Latency > 2s (10:08) → retry storm caused service overload
+4. ⏪ Rollback (10:30) → old endpoint restored
+5. ✅ Recovered (10:35) → rollback confirmed effective
+
+Confidence: 🟢 High
+Alternative hypothesis: another service may have deployed an incompatible change (low probability)
+```
+
+### 仅生成 Post-Mortem
+
+```text
+/incident postmortem
+```
+
+生成完整的 Markdown 文档，可直接审查。
+
+### 事故简报
+
+```text
+/incident brief
+```
+
+输出：
+
+```text
+🔔 Incident Brief
+- Title: user-service API Breaking Change
+- Severity: SEV2
+- Duration: 35 minutes
+- Impact: ~5000 users affected
+- Status: Resolved
 ```
 
 ## 编程式调用
@@ -67,6 +129,7 @@ import {
 } from 'incident-commander'
 
 async function main() {
+  // 1. 从 GitHub 采集事件
   const collector = new GitHubCollector({
     owner: 'saqqdy',
     repo: 'js-cool',
@@ -77,11 +140,16 @@ async function main() {
     end: '2026-06-20T12:00:00Z',
   })
 
-  console.log(`采集到 ${events.length} 个事件，耗时 ${duration}ms`)
+  console.log(`Collected ${events.length} events in ${duration}ms`)
 
+  // 2. 构建时间线
   const timeline = buildTimeline(events)
-  const report = generatePostMortem('API 500 故障', timeline, rca, impact)
-  console.log(renderPostMortemMarkdown(report))
+  console.log(`Turning points: ${timeline.turningPoints.map(e => e.title).join(', ')}`)
+
+  // 3. 生成 Post-Mortem（需要 RCA 和 Impact 数据）
+  const report = generatePostMortem('API 500 Error', timeline, rca, impact)
+  const markdown = renderPostMortemMarkdown(report)
+  console.log(markdown)
 }
 ```
 

@@ -23,8 +23,6 @@ interface CollectionResult<T = unknown> {
 
 ## 示例
 
-成功的采集：
-
 ```typescript
 const result: CollectionResult = {
   source: 'github',

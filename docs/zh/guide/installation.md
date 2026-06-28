@@ -1,6 +1,36 @@
 # 安装
 
-## 零配置演示（最快）
+选择适合你工作流的安装方式。
+
+## 方式一：Claude Code 插件（推荐）
+
+Incident Commander 设计为 **Claude Code Plugin**，实现无缝集成。
+
+### 方法 A：插件市场
+
+```bash
+# 在 Claude Code 中运行：
+/plugin marketplace add saqqdy/incident-commander
+/plugin install incident-commander
+```
+
+### 方法 B：本地安装
+
+```bash
+# 1. 进入你的项目
+cd your-project
+
+# 2. 安装 npm 包
+pnpm add -D incident-commander
+
+# 3. 复制 skill 文件
+mkdir -p .claude/skills
+cp -r node_modules/incident-commander/.claude/skills/incident-commander .claude/skills/
+```
+
+安装后，在 Claude Code 中使用 `/incident`、`/incident start`、`/timeline` 等命令。
+
+## 方式二：零配置演示（最快）
 
 无需 `gh` CLI、API Key 和代码，一条命令即可体验完整流程：
 
@@ -18,9 +48,7 @@ node dist/cli.js timeline --mock
 
 或在浏览器中直接体验：[体验场 →](/zh/playground)
 
-## Claude Code Skill（推荐）
-
-### 第一步：克隆到项目中
+## 方式三：克隆到项目
 
 ```bash
 cd your-project
@@ -32,7 +60,7 @@ git clone https://github.com/saqqdy/incident-commander.git .incident-commander
 cp -r incident-commander/.claude/skills/ .claude/skills/
 ```
 
-### 第二步：验证 gh CLI
+### 验证 gh CLI
 
 ```bash
 gh auth status  # 需要已认证的 GitHub 账号
@@ -44,7 +72,7 @@ gh auth status  # 需要已认证的 GitHub 账号
 gh auth login   # 按提示操作
 ```
 
-### 第三步：验证安装
+### 验证安装
 
 打开 Claude Code，输入：
 
@@ -54,7 +82,7 @@ gh auth login   # 按提示操作
 
 你应该能看到 Incident Commander 的交互式引导。
 
-## npm 包
+## 方式四：npm 包
 
 用于 CI/CD 自动化或自定义工具链的编程式调用：
 
