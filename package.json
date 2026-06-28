@@ -1,7 +1,7 @@
 {
 	"name": "incident-commander",
 	"description": "Incident Commander — A Claude Code Skill plugin that helps SRE / On-call engineers automatically collect multi-source data, generate incident timelines and root cause analyses, and output structured Post-Mortem documents",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"packageManager": "pnpm@9.15.9",
 	"bin": {
 		"incident-commander": "./dist/cli.mjs"
@@ -41,14 +41,14 @@
 		"@types/node": "^18.19.130",
 		"eslint": "^9.39.4",
 		"npm-run-all": "^4.1.5",
-		"prettier": "^3.8.4",
+		"prettier": "^3.9.1",
 		"prettier-config-common": "^1.5.0",
 		"rm-all": "^1.1.1",
 		"tsup": "^8.5.1",
 		"typescript": "^5.9.3",
 		"vitepress": "^1.6.4",
 		"vitest": "^3.2.6",
-		"vue": "^3.5.38"
+		"vue": "^3.5.39"
 	},
 	"engines": {
 		"node": ">=18.0"

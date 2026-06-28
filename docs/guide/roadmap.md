@@ -4,6 +4,22 @@ Incident Commander evolves through themed releases, each adding a layer of intel
 
 ## Current Release
 
+### v0.1.1 — Plugin Ready (Released)
+
+**Theme**: Documentation & Plugin Metadata
+
+**Capabilities**:
+- ✅ Enhanced Claude Code Plugin metadata
+- ✅ Marketplace publication configuration
+- ✅ Improved documentation structure
+- ✅ Better installation guides
+- ✅ Enhanced README with plugin info
+
+**Use Cases**:
+- Claude Code Plugin Marketplace ready
+- Better onboarding experience
+- Clearer installation instructions
+
 ### v0.1.0 — First Blood (Released)
 
 **Theme**: Project Bootstrap + MVP

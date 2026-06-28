@@ -9,7 +9,7 @@
     {
       "name": "incident-commander",
       "description": "Incident Commander — A Claude Code Skill plugin that helps SRE / On-call engineers automatically collect multi-source data, generate incident timelines and root cause analyses, and output structured Post-Mortem documents",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "saqqdy",
         "url": "https://github.com/saqqdy"

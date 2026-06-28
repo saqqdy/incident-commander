@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.1 (2026-06-28)
+
+### 📝 Documentation
+
+- **claude-code-skill**: enhance plugin metadata and documentation
+  - Add `.claude-plugin/marketplace.json` for marketplace publication
+  - Add `.claude-plugin/plugin.json` with version info
+  - Enhance skill documentation with better examples and clarity
+- **docs**: improve documentation structure and content
+  - Update installation guide with plugin installation instructions
+  - Enhance roadmap with version progression details
+  - Improve README with plugin marketplace information
+
 ## 0.1.0 (2026-06-28)
 
 ### 🚀 Features
