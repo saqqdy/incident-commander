@@ -1,94 +1,109 @@
 # Version Roadmap
 
-## Overview
+Incident Commander evolves through themed releases, each adding a layer of intelligence.
 
-| Version | Codename | Theme | Status |
-|---------|----------|-------|--------|
-| v0.1.0 | First Blood | Project bootstrap + MVP (GitHub single-source + timeline + Post-Mortem) | ✅ Complete |
-| v0.2.0 | Crossfire | Sentry + Grafana multi-source integration + AI causal reasoning | ⏳ In Development |
-| v0.3.0 | Commander | Interactive enhancements + degradation strategy + one-command mode | 📋 Planned |
-| v0.4.0 | Deep Dive | Kibana logs + deploy history integration | 📋 Planned |
-| v1.0.0 | Battle Ready | Production-ready + npm publish | 📋 Planned |
-| v2.0.0 | War Room | Knowledge base + prediction mode + Runbook automation | 📋 Future |
+## Current Release
 
-## v0.1.0 — First Blood
+### v0.1.0 — First Blood (Released)
 
-> 🎯 **Milestone**: First end-to-end run from time range input to timeline output
+**Theme**: Project Bootstrap + MVP
 
-- ✅ `/incident` main command (interactive walkthrough)
-- ✅ GitHub data collection (commits / PRs / workflow runs)
-- ✅ Basic timeline building (sort + dedup + event type labeling)
-- ✅ Basic RCA (inferring likely root cause from timeline)
-- ✅ Basic Post-Mortem generation (template filling)
-- ✅ Sample data and examples
+**Capabilities**:
+- ✅ `/incident` interactive walkthrough
+- ✅ GitHub data collection (commits / PRs / workflow runs via `gh` CLI)
+- ✅ Timeline building (sort + dedup + turning point detection)
+- ✅ Basic RCA (causal chain inference from timeline)
+- ✅ Post-Mortem generation (structured Markdown output)
+- ✅ Incident brief generation
+- ✅ Zero-config demo mode (`pnpm run demo`)
+- ✅ Claude Code Plugin metadata (`.claude-plugin/`)
+- ✅ TypeScript/Node.js API
 
-## v0.2.0 — Crossfire
+**Use Cases**:
+- GitHub-centric incident analysis
+- Quick retrospective generation
+- CLI-driven timeline exploration
 
-> 🎯 **Milestone**: First true multi-source causal reasoning — cross-validating "deploy → error → metric anomaly" chains
+## Planned Releases
 
-- ⏳ Sentry collector (errors, issues, breadcrumbs, affected users)
-- ⏳ Grafana collector (metric anomalies: CPU, memory, latency, error rate)
-- ⏳ Causal reasoning analyzer (`src/analyzers/causality.ts`)
-- ⏳ Impact assessment analyzer (`src/analyzers/impact.ts`)
-- ⏳ Enhanced multi-source timeline merging
-- ⏳ MCP configuration examples for Sentry and Grafana
+### v0.2.0 — Crossfire
 
-## v0.3.0 — Commander
+**Theme**: Multi-Source Integration + Causal Reasoning
 
-> 🎯 **Milestone**: UX quality leap — one-command `/incident start`, graceful degradation instead of crashes
+**Planned Features**:
+- Sentry collector (errors, issues, breadcrumbs, affected users)
+- Grafana collector (metric anomalies: CPU, memory, latency, error rate)
+- Causal reasoning analyzer with confidence labels
+- Impact assessment (users / features / data dimensions)
+- Multi-source timeline merging and deduplication
+- MCP configuration examples for Sentry and Grafana
 
-- 📋 Sub-command routing (start / timeline / rca / postmortem / brief / config)
-- 📋 One-command mode (`/incident start <time-range>`)
-- 📋 Configuration management (`/incident config`)
-- 📋 Incident brief template
-- 📋 Degradation strategy framework (`src/collectors/base.ts`)
-- 📋 GitHub fallback (MCP → CLI → manual → Q&A)
-- 📋 Full degradation mode (all sources down → pure interactive)
+### v0.3.0 — Commander
 
-## v0.4.0 — Deep Dive
+**Theme**: Interactive Enhancements + Degradation Strategy
 
-> 🎯 **Milestone**: Data source completeness — covering logs and deployment dimensions
+**Planned Features**:
+- Sub-command routing (`/incident start` / `timeline` / `rca` / `postmortem` / `brief` / `config`)
+- One-command mode (`/incident start <time-range>`)
+- Configuration management
+- Graceful degradation (MCP → CLI → manual → Q&A)
+- Incident brief template
 
-- 📋 Kibana/ES collector (error log clustering, high-frequency anomalies)
-- 📋 Deploy history collector (GitHub Deployments / Vercel)
-- 📋 Log clustering analysis
-- 📋 Deploy-to-incident causal correlation
+### v0.4.0 — Deep Dive
 
-## v1.0.0 — Battle Ready
+**Theme**: Logs + Deployment Integration
 
-> 🎯 **Milestone**: From "works" to "works well" — performance, docs, stability
+**Planned Features**:
+- Kibana/ES collector (error log clustering)
+- Deploy history collector (GitHub Deployments / Vercel)
+- Log clustering analysis
+- Deploy-to-incident causal correlation
 
-- 📋 Parallel collection optimization
-- 📋 Incremental analysis support
-- 📋 Context compression for long incidents
-- 📋 Complete documentation
-- 📋 One-click setup script
-- 📋 Edge case hardening
-- 📋 npm publish + GitHub Release
+### v1.0.0 — Battle Ready
 
-## v1.x — Continuous Improvement
+**Theme**: Production Ready
 
-### v1.1.0 — Better Together (IM Integration)
+**Planned Features**:
+- Parallel collection optimization
+- Incremental analysis support
+- Context compression for long incidents
+- Claude Code Plugin Marketplace
+- Complete documentation + one-click setup
+- npm publish + GitHub Release
+
+## Future Vision
+
+### v1.1.0 — Better Together
 - Slack / Feishu MCP integration for chat message collection
-- Auto-create incident channel/topic on `/incident start`
+- Auto-create incident channel on `/incident start`
 - Auto-push brief to IM after analysis
 
-### v1.2.0 — Learn from History (Knowledge Base v1)
-- Historical incident archive (Markdown directory)
-- Similar incident matching for new incidents
+### v1.2.0 — Learn from History
+- Historical incident archive
+- Similar incident matching
 - Pattern recognition (e.g., "memory leak after every Tuesday deploy")
 
-### v1.3.0 — Self-Review (Prevention Mode)
+### v1.3.0 — Self-Review
 - Deploy pre-check based on historical patterns
-- Change risk assessment for large refactors
+- Change risk assessment
 - Canary strategy recommendations
 
-## v2.0.0 — War Room
-
-> 🎯 **Vision**: From "post-incident analysis tool" to "incident war room"
-
-- Real-time mode (WebSocket / SSE integration)
-- Multi-agent collaboration (Collect / Analyze / Communicate agents)
+### v2.0.0 — War Room
+- Real-time mode (WebSocket / SSE)
+- Multi-agent collaboration
 - Runbook execution (semi-automated fix workflows)
 - On-call handoff documentation
-- Chaos engineering experiment generation from Post-Mortems
+
+## Release Philosophy
+
+- **Incremental Value**: Each release delivers usable features
+- **Backward Compatible**: APIs remain stable across minor versions
+- **Community Driven**: Roadmap shaped by user feedback
+
+## Contributing
+
+Have ideas for future releases? [Open an issue](https://github.com/saqqdy/incident-commander/issues) or join discussions.
+
+## Changelog
+
+See [CHANGELOG.md](https://github.com/saqqdy/incident-commander/blob/master/CHANGELOG.md) for release history.

@@ -105,7 +105,55 @@ MCP Server 不可用? → 尝试 CLI 工具 → 引导手动粘贴 → 标记数
 
 ## 🚀 如何体验
 
-### 方式零：零配置演示（最快）
+### 方式一：Claude Code 插件（推荐）
+
+本项目是 **Claude Code 插件**，通过 Marketplace 一键安装。
+
+#### 方法 A：插件市场（推荐）
+
+```bash
+# 在 Claude Code 中运行：
+/plugin marketplace add saqqdy/incident-commander
+/plugin install incident-commander
+```
+
+#### 方法 B：本地安装
+
+```bash
+# 1. 进入你的项目
+cd your-project
+
+# 2. 安装 npm 包
+pnpm add -D incident-commander
+
+# 3. 复制插件文件
+mkdir -p .claude/skills
+cp -r node_modules/incident-commander/.claude/skills/incident-commander .claude/skills/
+```
+
+#### 可用命令
+
+在 Claude Code 中输入以下命令：
+
+| 命令 | 描述 | 示例 |
+|------|------|------|
+| `/incident` | 交互式引导 | `/incident` |
+| `/incident start` | 一键分析 | `/incident start 2h` |
+| `/incident timeline` | 仅生成时间线 | `/incident timeline` |
+| `/incident rca` | 根因分析 | `/incident rca` |
+| `/incident postmortem` | Post-Mortem 文档 | `/incident postmortem` |
+| `/incident brief` | 事故简报 | `/incident brief` |
+
+### 方式二：零配置演示（最快）
+
+```bash
+# 将项目 clone 到你正在用 Claude Code 开发的项目目录
+cd your-project
+git clone https://github.com/saqqdy/incident-commander.git .incident-commander
+
+# 或者直接复制 Skill 目录到你的项目中
+cp -r incident-commander/.claude/skills/ .claude/skills/
+```
 
 无需 `gh` CLI、API Key 和代码，一条命令即可体验完整流程：
 
@@ -123,41 +171,7 @@ node dist/cli.js timeline --mock
 
 使用内置模拟数据，场景与示例一致（user-service API Breaking Change → 500 错误）。
 
-### 方式一：Claude Code Skill（推荐）
-
-这是最完整的体验方式——在对话中让 AI 帮你完成全部分析。
-
-**第一步：安装项目**
-
-```bash
-# 将项目 clone 到你正在用 Claude Code 开发的项目目录
-cd your-project
-git clone https://github.com/saqqdy/incident-commander.git .incident-commander
-
-# 或者直接复制 Skill 目录到你的项目中
-cp -r incident-commander/.claude/skills/ .claude/skills/
-```
-
-**第二步：确认 gh CLI 可用**
-
-```bash
-gh auth status  # 需要已登录的 GitHub 账号
-```
-
-**第三步：在 Claude Code 中体验**
-
-```
-/incident                          # 交互式引导，一步步完成分析
-/incident start 2h                 # 一键分析最近 2 小时的事件
-/incident start 2026-06-20T10:00..2026-06-20T12:00  # 指定时间范围
-/incident timeline                 # 仅生成时间线
-/incident rca                      # 仅做根因分析
-/incident postmortem               # 生成 Post-Mortem 文档
-/incident brief                    # 生成事故简报
-/incident config                   # 查看或配置数据源
-```
-
-**第四步（可选）：接入更多数据源**
+### 方式三：编程调用
 
 复制 `mcp-configs/` 下的配置到 `.claude/settings.json`，填入真实的 Token：
 
@@ -180,7 +194,7 @@ gh auth status  # 需要已登录的 GitHub 账号
 
 配置后 `/incident start 2h` 将同时采集 GitHub + Sentry 数据，实现多源关联推理。
 
-### 方式二：编程调用
+### 方式四：查看示例输出
 
 适合在 CI/CD 自动化、自定义工具链中使用。
 
@@ -217,20 +231,7 @@ const markdown = renderPostMortemMarkdown(report)
 console.log(markdown)
 ```
 
-### 方式三：零配置演示（最快）
-
-无需任何配置，立即体验：
-
-```bash
-git clone https://github.com/saqqdy/incident-commander.git
-cd incident-commander
-pnpm install && pnpm run build
-pnpm run demo
-```
-
-或在浏览器中试试交互式[体验场](https://saqqdy.github.io/incident-commander/zh/playground)。
-
-### 方式四：查看示例输出
+### 方式三：编程调用
 
 不想配置环境？直接看示例感受效果：
 
@@ -305,7 +306,11 @@ incident-commander/
 │   ├── collect.md                       # 数据采集指令
 │   ├── timeline.md                      # 时间线构建指令
 │   ├── rca.md                           # 根因分析指令
-│   └── postmortem.md                    # Post-Mortem 生成指令
+│   ├── postmortem.md                    # Post-Mortem 生成指令
+│   └── CLAUDE.md                        # 开发指南
+├── .claude-plugin/                      # 插件元数据
+│   ├── plugin.json                      # 插件信息
+│   └── marketplace.json                 # Marketplace 发布配置
 ├── src/                                 # TypeScript 源码
 │   ├── types.ts                         # 核心类型定义
 │   ├── cli.ts                           # CLI 入口（demo & timeline --mock）

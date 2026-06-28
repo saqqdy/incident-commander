@@ -1,6 +1,36 @@
 # Installation
 
-## Zero-Config Demo (Fastest)
+Choose the installation method that fits your workflow.
+
+## Option 1: Claude Code Plugin (Recommended)
+
+Incident Commander is designed as a **Claude Code Plugin** for seamless integration.
+
+### Method A: Plugin Marketplace
+
+```bash
+# In Claude Code, run:
+/plugin marketplace add saqqdy/incident-commander
+/plugin install incident-commander
+```
+
+### Method B: Local Install
+
+```bash
+# 1. Navigate to your project
+cd your-project
+
+# 2. Install npm package
+pnpm add -D incident-commander
+
+# 3. Copy skill files
+mkdir -p .claude/skills
+cp -r node_modules/incident-commander/.claude/skills/incident-commander .claude/skills/
+```
+
+After installation, use commands like `/incident`, `/incident start`, `/timeline` in Claude Code.
+
+## Option 2: Zero-Config Demo (Fastest)
 
 Try the full pipeline instantly — no `gh` CLI, no API keys, no code:
 
@@ -18,9 +48,7 @@ node dist/cli.js timeline --mock
 
 Or try it in your browser: [Playground →](/playground)
 
-## Claude Code Skill (Recommended)
-
-### Step 1: Clone into your project
+## Option 3: Clone into your project
 
 ```bash
 cd your-project
@@ -32,7 +60,7 @@ git clone https://github.com/saqqdy/incident-commander.git .incident-commander
 cp -r incident-commander/.claude/skills/ .claude/skills/
 ```
 
-### Step 2: Verify gh CLI
+### Verify gh CLI
 
 ```bash
 gh auth status  # Needs an authenticated GitHub account
@@ -44,7 +72,7 @@ If you haven't authenticated yet:
 gh auth login   # Follow the prompts
 ```
 
-### Step 3: Verify installation
+### Verify installation
 
 Open Claude Code and type:
 
@@ -54,7 +82,7 @@ Open Claude Code and type:
 
 You should see the Incident Commander interactive walkthrough.
 
-## npm Package
+## Option 4: npm Package
 
 For programmatic usage in CI/CD or custom toolchains:
 

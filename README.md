@@ -105,25 +105,46 @@ All sources down?  → Pure interactive mode (Q&A to collect information)
 
 ## 🚀 Getting Started
 
-### Option 0: Zero-Config Demo (Fastest)
+### Option 1: Claude Code Plugin (Recommended)
 
-Try the full pipeline instantly — no `gh` CLI, no API keys, no code.
+This project is a **Claude Code Plugin**. Install via marketplace for one-click setup.
+
+#### Method A: Plugin Marketplace (Recommended)
 
 ```bash
-git clone https://github.com/saqqdy/incident-commander.git
-cd incident-commander
-pnpm install && pnpm run build
-
-# Full pipeline demo (collect → timeline → RCA → Post-Mortem)
-pnpm run demo
-
-# Timeline only
-node dist/cli.js timeline --mock
+# In Claude Code, run:
+/plugin marketplace add saqqdy/incident-commander
+/plugin install incident-commander
 ```
 
-Uses built-in mock data based on the sample scenario (user-service API Breaking Change → 500 errors).
+#### Method B: Local Install
 
-### Option 1: Claude Code Skill (Recommended)
+```bash
+# 1. Go to your project
+cd your-project
+
+# 2. Install npm package
+pnpm add -D incident-commander
+
+# 3. Copy plugin files
+mkdir -p .claude/skills
+cp -r node_modules/incident-commander/.claude/skills/incident-commander .claude/skills/
+```
+
+#### Available Commands
+
+Type these commands in Claude Code:
+
+| Command | Description | Example |
+|---------|-------------|---------|
+| `/incident` | Interactive walkthrough | `/incident` |
+| `/incident start` | One-command analysis | `/incident start 2h` |
+| `/incident timeline` | Generate timeline only | `/incident timeline` |
+| `/incident rca` | Root cause analysis | `/incident rca` |
+| `/incident postmortem` | Post-Mortem document | `/incident postmortem` |
+| `/incident brief` | Incident brief | `/incident brief` |
+
+### Option 2: Zero-Config Demo (Fastest)
 
 The fullest experience — let AI handle the entire analysis in conversation.
 
@@ -180,7 +201,7 @@ Copy configs from `mcp-configs/` into `.claude/settings.json` with real tokens:
 
 After configuration, `/incident start 2h` will collect from GitHub + Sentry simultaneously for cross-source reasoning.
 
-### Option 2: Programmatic Usage
+### Option 3: Programmatic Usage
 
 For CI/CD automation or custom toolchains.
 
@@ -216,19 +237,6 @@ const report = generatePostMortem('API 500 Error', timeline, rca, impact)
 const markdown = renderPostMortemMarkdown(report)
 console.log(markdown)
 ```
-
-### Option 3: Zero-Config Demo (Fastest)
-
-No setup at all — try it right now:
-
-```bash
-git clone https://github.com/saqqdy/incident-commander.git
-cd incident-commander
-pnpm install && pnpm run build
-pnpm run demo
-```
-
-Or try the interactive [Playground](https://saqqdy.github.io/incident-commander/playground) in your browser.
 
 ### Option 4: Browse Sample Output
 
@@ -305,7 +313,11 @@ incident-commander/
 │   ├── collect.md                       # Data collection instructions
 │   ├── timeline.md                      # Timeline building instructions
 │   ├── rca.md                           # Root cause analysis instructions
-│   └── postmortem.md                    # Post-Mortem generation instructions
+│   ├── postmortem.md                    # Post-Mortem generation instructions
+│   └── CLAUDE.md                        # Development guide
+├── .claude-plugin/                      # Plugin metadata
+│   ├── plugin.json                      # Plugin info
+│   └── marketplace.json                 # Marketplace publication
 ├── src/                                 # TypeScript source
 │   ├── types.ts                         # Core type definitions
 │   ├── cli.ts                           # CLI entry (demo & timeline --mock)
